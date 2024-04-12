@@ -1,8 +1,8 @@
-wget https://github.com/prometheus/prometheus/releases/download/v2.44.0/prometheus-2.44.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/prometheus/releases/download/v2.51.1/prometheus-2.51.1.linux-amd64.tar.gz
 
-tar -xvzf prometheus-2.44.0.linux-amd64.tar.gz -C /etc/
+tar -xvzf prometheus-2.51.1.linux-amd64.tar.gz -C /etc/
 
-mv /etc/prometheus-2.44.0.linux-amd64 /etc/prometheus
+mv /etc/prometheus-2.51.1.linux-amd64 /etc/prometheus
 
 cp /etc/prometheus/{prometheus,promtool} /usr/bin/
 
