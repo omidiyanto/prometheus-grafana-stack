@@ -2,10 +2,11 @@
 - On monitor server, you must install Prometheus & Grafana
 - On client server that will be monitored, must installed node-exporter
 
-## Prometheus configuration file: /etc/prometheus/prometheus.yml
-## Prometheus on port 9090
-## Node-Exporter on port 9100
-## Grafana on port 3000
+## Notes:
+- Prometheus configuration file: /etc/prometheus/prometheus.yml
+- Prometheus on port 9090
+- Node-Exporter on port 9100
+- Grafana on port 3000
 
 # Step-by-Step Guide for Installation
 First, login as root user, for example : "sudo su -"
