@@ -1,6 +1,6 @@
 wget https://dl.grafana.com/oss/release/grafana-10.4.2.linux-amd64.tar.gz
 tar -xvzf grafana-10.4.2.linux-amd64.tar.gz -C /usr/share/
-mv /usr/share/grafana-10.4.2 /usr/share/grafana
+mv /usr/share/grafana-v10.4.2 /usr/share/grafana
 
 servicefile=$(cat <<'EOF'
 [Unit]
