@@ -7,7 +7,7 @@ servicefile=$(cat <<'EOF'
 Description=Grafana instance
 
 [Service]
-ExecStart=/usr/share/grafana/bin/grafana -homepath /usr/share/grafana web
+ExecStart=/usr/share/grafana/bin/grafana-server -homepath /usr/share/grafana web
 
 [Install]
 WantedBy=default.target
