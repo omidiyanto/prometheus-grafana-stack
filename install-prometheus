@@ -4,7 +4,9 @@ tar -xvzf prometheus-2.44.0.linux-amd64.tar.gz -C /etc/
 
 mv /etc/prometheus-2.44.0.linux-amd64 /etc/prometheus
 
-mv /etc/prometheus/{prometheus,promtool} /usr/bin/
+cp /etc/prometheus/{prometheus,promtool} /usr/bin/
+
+rm -rf /etc/prometheus/{prometheus,promtool}
 
 mkdir /var/lib/prometheus
 
