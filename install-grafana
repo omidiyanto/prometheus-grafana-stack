@@ -1,0 +1,24 @@
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise-10.4.2.linux-amd64.tar.gz
+tar -xvzf grafana-enterprise-10.4.2.linux-amd64.tar.gz -C /usr/share/
+mv /usr/share/grafana-enterprise-10.4.2.linux-amd64 /usr/share/grafana
+
+servicefile=$(cat <<'EOF'
+[Unit]
+Description=Grafana instance
+
+[Service]
+ExecStart=/usr/share/grafana/bin/grafana -homepath /usr/share/grafana web
+
+[Install]
+WantedBy=default.target
+EOF
+)
+
+echo "$servicefile" > /etc/systemd/system/grafana-server.service
+
+systemctl daemon-reload
+systemctl enable --now grafana-server.service
+systemctl status grafana-server.service
+
+rm -rf grafana*
+
