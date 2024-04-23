@@ -48,5 +48,6 @@ EOF
 
 echo "$configfile"> /etc/httpd/conf.d/apache_exporter.conf
 systemctl restart httpd
+systemctl restart apache_exporter.service
 rm -rf apache*
 systemctl status apache_exporter.service
