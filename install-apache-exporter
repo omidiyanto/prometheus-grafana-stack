@@ -1,0 +1,51 @@
+#!/bin/bash
+dnf install httpd -y &>/dev/null
+systemctl enable --now httpd 
+curl -s https://api.github.com/repos/Lusitaniae/apache_exporter/releases/latest   | grep browser_download_url   | grep linux-amd64 | cut -d '"' -f 4 | wget -qi -
+tar -xzvf apache_exporter-*.linux-amd64.tar.gz &>/dev/null
+cp -ivr  apache_exporter-*.linux-amd64/apache_exporter /usr/bin
+chmod +x /usr/bin/apache_exporter
+apache_exporter --version
+
+servicefile=$(cat <<'EOF'
+[Unit]
+Description=Apache Exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart=/usr/bin/apache_exporter 
+  --insecure 
+  --scrape_uri=http://localhost/server-status/?auto 
+  --telemetry.address=0.0.0.0:9117 
+  --telemetry.endpoint=/metrics
+
+SyslogIdentifier=apache_exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+)
+
+echo "$servicefile" > /etc/systemd/system/apache_exporter.service
+systemctl daemon-reload
+systemctl enable --now apache_exporter.service
+
+echo "LoadModule status_module modules/mod_status.so" >> /etc/httpd/conf/httpd.conf
+
+configfile=$(cat <<'EOF'
+ExtendedStatus on
+<Location /server-status>
+  SetHandler server-status
+  Order deny,allow
+  Deny from all
+  Allow from localhost
+</Location>
+EOF
+)
+
+echo echo "$configfile"> /etc/httpd/conf.d/apache_exporter.conf
+systemctl restart httpd
+systemctl status apache_exporter.service
