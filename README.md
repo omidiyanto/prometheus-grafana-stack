@@ -20,4 +20,7 @@ curl -s https://raw.githubusercontent.com/omidiyanto/prometheus-nodeexporter-gra
 ## Installing Node-Exporter on Client
 curl -s https://raw.githubusercontent.com/omidiyanto/prometheus-nodeexporter-grafana-installer/main/install-node-exporter | bash
 
+## Installing Apache-Exporter on Client
+curl -s https://raw.githubusercontent.com/omidiyanto/prometheus-grafana-stack/main/install-apache_exporter | bash
+
 
