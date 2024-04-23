@@ -17,11 +17,11 @@ WantedBy=default.target
 EOF
 )
 
-echo "$servicefile" > /etc/systemd/system/node_expporter.service
+echo "$servicefile" > /etc/systemd/system/node_exporter.service
 
 systemctl daemon-reload
-systemctl enable --now node_expporter.service
-systemctl status node_expporter.service
+systemctl enable --now node_exporter.service
+systemctl status node_exporter.service
 
 rm -rf node* 
 rm -rf /opt/node*
