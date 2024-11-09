@@ -1,6 +1,8 @@
-wget https://dl.grafana.com/oss/release/grafana-10.4.2.linux-amd64.tar.gz
-tar -xvzf grafana-10.4.2.linux-amd64.tar.gz -C /usr/share/
-mv /usr/share/grafana-v10.4.2 /usr/share/grafana
+#!/bin/bash
+version="11.3.0"
+wget https://dl.grafana.com/oss/release/grafana-${version}.linux-amd64.tar.gz
+tar -xvzf grafana-${version}.linux-amd64.tar.gz -C /usr/share/
+mv /usr/share/grafana-v${version} /usr/share/grafana
 
 servicefile=$(cat <<'EOF'
 [Unit]
@@ -15,10 +17,7 @@ EOF
 )
 
 echo "$servicefile" > /etc/systemd/system/grafana-server.service
-
 systemctl daemon-reload
 systemctl enable --now grafana-server.service
 systemctl status grafana-server.service
-
 rm -rf grafana*
-
