@@ -1,15 +1,11 @@
-wget https://github.com/prometheus/prometheus/releases/download/v2.51.1/prometheus-2.51.1.linux-amd64.tar.gz
-
-tar -xvzf prometheus-2.51.1.linux-amd64.tar.gz -C /etc/
-
-mv /etc/prometheus-2.51.1.linux-amd64 /etc/prometheus
-
+#!/bin/bash
+version="2.55.0"
+wget https://github.com/prometheus/prometheus/releases/download/v${version}/prometheus-${version}.linux-amd64.tar.gz
+tar -xvzf prometheus-${version}.linux-amd64.tar.gz -C /etc/
+mv /etc/prometheus-${version}.linux-amd64 /etc/prometheus
 cp /etc/prometheus/{prometheus,promtool} /usr/bin/
-
 rm -rf /etc/prometheus/{prometheus,promtool}
-
 mkdir /var/lib/prometheus
-
 servicefile=$(cat <<'EOF'
 [Unit]
 Description=Prometheus
@@ -22,11 +18,8 @@ ExecStart=/usr/bin/prometheus --config.file=/etc/prometheus/prometheus.yml --sto
 WantedBy=default.target
 EOF
 )
-
 echo "$servicefile" > /etc/systemd/system/prometheus-server.service
-
 systemctl daemon-reload
 systemctl enable --now prometheus-server.service
 systemctl status prometheus-server.service
-
 rm -rf prom*
